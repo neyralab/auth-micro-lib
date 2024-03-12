@@ -28,3 +28,10 @@ export interface IWeb3NeyraAuth {
   connect: any;
   signMessage: any;
 }
+
+export interface ILoginEmail {
+  name?: string;
+  email: string;
+  password: string;
+  NEIRA_AI_API: string;
+}
