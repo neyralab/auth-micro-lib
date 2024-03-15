@@ -1,10 +1,17 @@
 import { path } from 'ramda';
-const setToCookies = (token, type) => {
+
+interface CookieOptions {
+  path?: string;
+}
+
+const setToCookies = (token: string, type: string) => {
   if (token.length > 4096) {
     throw new Error('Token length exceeds maximum allowed.');
   }
 
-  const options = {};
+  const options: CookieOptions = {
+    path: '/',
+  };
 
   token = encodeURIComponent(token);
   document.cookie = `${type}=${token}; ${Object.entries(options)
@@ -12,10 +19,9 @@ const setToCookies = (token, type) => {
     .join('; ')}`;
 };
 
-export const setToken = (res, access_token, refresh_token) => {
+export const setToken = (res: any, access_token?: string, refresh_token?: string) => {
   const token = path(['data', 'access_token'], res) || '';
   const refreshToken = path(['data', 'refresh_token'], res) || '';
-  console.log(access_token, refresh_token)
 
   if (access_token) {
     setToCookies(access_token, 'access_token');
@@ -30,4 +36,4 @@ export const setToken = (res, access_token, refresh_token) => {
   if (refreshToken) {
     setToCookies(refreshToken, 'refresh_token');
   }
-}
+};

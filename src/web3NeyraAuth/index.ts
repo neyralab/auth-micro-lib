@@ -64,7 +64,7 @@ export const web3NeyraAuth = async ({
             API_SIGN_IN_METAMASK,
             handleMetamaskLogin,
           })
-            .then((res) => {
+            .then((res: any) => {
               if (!res.data.public_key || res.data.public_key.length === 0) {
                 const currentProvider = new ethers.providers.Web3Provider(
                   provider ?? window.ethereum
