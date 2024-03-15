@@ -7,7 +7,9 @@
     "declaration": true,
     "outDir": "./lib/es6",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true 
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
   },
   "include": ["src/**/*"],
   "exclude": ["**/*.test.ts"]

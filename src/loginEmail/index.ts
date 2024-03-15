@@ -22,6 +22,7 @@ export const loginEmail = async ({ NEIRA_AI_API, name, password, email }: ILogin
       const access_token = response.data.data.access_token;
       const refresh_token = response.data.data.refresh_token;
       setToken(response, access_token, refresh_token);
+      return response.data;
     } else {
       throw new Error(response.data);
     }
