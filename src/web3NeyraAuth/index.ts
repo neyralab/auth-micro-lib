@@ -1,10 +1,9 @@
 import { ethers } from 'ethers';
-
-import { IWeb3NeyraAuth } from '../types';
-import { loginMetamask } from '../loginMetamask';
-import { loginUnstoppableEffect } from '../loginUnstoppableEffect';
-import { getUserRSAKeys } from '../getUserRSAKeys';
-import { publicKeyToPem } from '../publicKeyToPem';
+import { IWeb3NeyraAuth } from '../types/index.js';
+import { loginMetamask } from '../loginMetamask/index.js';
+import { getUserRSAKeys } from '../getUserRSAKeys/index.js';
+import { publicKeyToPem } from '../publicKeyToPem/index.js';
+import { loginUnstoppableEffect } from '../loginUnstoppableEffect/index.js';
 
 // variant - 2
 export const web3NeyraAuth = async ({

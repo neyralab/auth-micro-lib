@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { setToken } from '../setToken';
-import { ILoginEmail } from '../types';
+import { setToken } from '../setToken/index.js';
+import { ILoginEmail } from '../types/index.js';
 
 export const loginEmail = async ({ NEIRA_AI_API, name, password, email }: ILoginEmail) => {
   try {
