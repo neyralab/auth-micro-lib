@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { ethers } from 'ethers';
-import { getUserRSAKeys } from '../getUserRSAKeys/index.js';
-import { publicKeyToPem } from '../publicKeyToPem/index.js';
-import { setToken } from '../setToken/index.js';
+//@ts-ignore
+import { getUserRSAKeys } from '../getUserRSAKeys/index.ts';
+//@ts-ignore
+import { publicKeyToPem } from '../publicKeyToPem/index.ts';
+//@ts-ignore
+import { setToken } from '../setToken/index.ts';
 
 export const loginMetamask = async ({ publicAddress, signature, NEYRA_AI_API, API_PUB_KEY_SAVE }: any) => {
   try {

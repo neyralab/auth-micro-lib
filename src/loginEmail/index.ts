@@ -1,6 +1,8 @@
 import axios from 'axios';
-import { setToken } from '../setToken/index.js';
-import { ILoginEmail } from '../types/index.js';
+//@ts-ignore
+import { setToken } from '../setToken/index.ts';
+//@ts-ignore
+import { ILoginEmail } from '../types/index.ts';
 
 export const loginEmail = async ({ NEIRA_AI_API, name, password, email }: ILoginEmail) => {
   try {
