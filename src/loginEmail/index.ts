@@ -2,10 +2,10 @@ import axios from 'axios';
 import { setToken } from '../setToken/index.js';
 import { ILoginEmail } from '../types/index.js';
 
-export const loginEmail = async ({ NEIRA_AI_API, name, password, email }: ILoginEmail) => {
+export const loginEmail = async ({ NEYRA_AI_API, name, password, email }: ILoginEmail) => {
   try {
     const response = await axios.put(
-      `${NEIRA_AI_API}/auth/identity/connect_userv8`,
+      `${NEYRA_AI_API}/auth/identity/connect_userv8`,
       {
         provider: 'email',
         first_name: name,

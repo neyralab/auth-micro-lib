@@ -35,7 +35,7 @@ export interface ILoginEmail {
   name?: string;
   email: string;
   password: string;
-  NEIRA_AI_API: string;
+  NEYRA_AI_API: string;
 }
 
 export interface ILoginMetamask {
@@ -49,4 +49,24 @@ export interface ILoginMetamask {
 export interface IGetUserRSAKeys {
   publicAddress: `0x${string}`;
   signMessageAsync: SignMessageMutateAsync<unknown>;
+}
+
+export interface ILoginTelegram {
+  NEYRA_AI_API: string;
+  telegramResponse: TelegramUser;
+}
+
+export interface TelegramUser {
+  id: number;
+  username?: string;
+  first_name: string;
+  last_name?: string;
+  photo_url: string;
+  auth_date: number;
+  hash: string;
+}
+
+export interface ILoginGoogle {
+  NEYRA_AI_API: string;
+  credential: any;
 }
