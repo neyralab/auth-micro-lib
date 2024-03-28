@@ -1,18 +1,22 @@
-import * as forge from "node-forge";
+import * as forge from 'node-forge';
+import { IGetUserRSAKeys } from '../types/index.js';
 
-export const getUserRSAKeys = async function ({ signer }: { signer: any }) {
+export const getUserRSAKeys = async ({ signMessageAsync, publicAddress }: IGetUserRSAKeys) => {
   const msg =
-    "Welcome to GhostDrive! \n\nPlease sign to start using this for encryption with Ghostdrive. \n" +
-    "This will not trigger a blockchain transaction or cost any gas fees. \n\n" +
+    'Welcome to GhostDrive! \n\nPlease sign to start using this for encryption with Ghostdrive. \n' +
+    'This will not trigger a blockchain transaction or cost any gas fees. \n\n' +
     "What's happening?\n" +
-    "A public key will be registered with this address and \n" +
-    "used only for data encryption.";
+    'A public key will be registered with this address and \n' +
+    'used only for data encryption.';
 
-  const rnd = await signer.signMessage(msg);
+  const rnd = await signMessageAsync({
+    message: msg,
+    account: publicAddress,
+  });
   const prng = forge.random.createInstance();
 
   prng.seedFileSync = function (needed: number) {
-    let outputString = "";
+    let outputString = '';
     while (outputString.length < needed) {
       outputString += rnd;
     }

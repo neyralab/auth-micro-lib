@@ -53,71 +53,71 @@ export const web3NeyraAuth = async ({
           label === 'WalletConnect'
         ) {
           console.log(label)
-          loginMetamask({
-            publicAddress: currentAccount || window.ethereum.selectedAddress,
-            signature: sig,
-            history,
-            dispatch,
-            slug: subdomain,
-            redirectUrl,
-            API_SIGN_IN_METAMASK,
-            handleMetamaskLogin,
-          })
-            .then((res: any) => {
-              if (!res.data.public_key || res.data.public_key.length === 0) {
-                const currentProvider = new ethers.providers.Web3Provider(
-                  provider ?? window.ethereum
-                );
-                const signer = currentProvider.getSigner();
-                getUserRSAKeys({ signer }).then((keys) => {
-                  savePubKey(
-                    currentAccount || window.ethereum.selectedAddress,
-                    publicKeyToPem({ publicKey: keys.publicKey })
-                  );
-                });
-              }
-            })
-            .catch((error) => {
-              if (errorMessages.unregistered === error.message) {
-                if (
-                  label === 'MetaMask' ||
-                  label === 'Coinbase Wallet' ||
-                  label === 'WalletConnect'
-                ) {
-                  const is_coinbase = label === 'Coinbase Wallet';
-                  handleSignUp(
-                    is_coinbase,
-                    searchParams,
-                    currentAccount,
-                    provider,
-                    setSignatureError,
-                    dispatch,
-                    redirectUrl,
-                    setIsConnecting,
-                    history
-                  );
-                }
+          // loginMetamask({
+          //   publicAddress: currentAccount || window.ethereum.selectedAddress,
+          //   signature: sig,
+          //   history,
+          //   dispatch,
+          //   slug: subdomain,
+          //   redirectUrl,
+          //   API_SIGN_IN_METAMASK,
+          //   handleMetamaskLogin,
+          // })
+          //   .then((res: any) => {
+          //     if (!res.data.public_key || res.data.public_key.length === 0) {
+          //       const currentProvider = new ethers.providers.Web3Provider(
+          //         provider ?? window.ethereum
+          //       );
+          //       const signer = currentProvider.getSigner();
+          //       getUserRSAKeys({ signer }).then((keys) => {
+          //         savePubKey(
+          //           currentAccount || window.ethereum.selectedAddress,
+          //           publicKeyToPem({ publicKey: keys.publicKey })
+          //         );
+          //       });
+          //     }
+          //   })
+          //   .catch((error) => {
+          //     if (errorMessages.unregistered === error.message) {
+          //       if (
+          //         label === 'MetaMask' ||
+          //         label === 'Coinbase Wallet' ||
+          //         label === 'WalletConnect'
+          //       ) {
+          //         const is_coinbase = label === 'Coinbase Wallet';
+          //         handleSignUp(
+          //           is_coinbase,
+          //           searchParams,
+          //           currentAccount,
+          //           provider,
+          //           setSignatureError,
+          //           dispatch,
+          //           redirectUrl,
+          //           setIsConnecting,
+          //           history
+          //         );
+          //       }
 
-                if (sig && label === 'Unstoppable') {
-                  loginUnstoppableEffect({
-                    history,
-                    redirectUrl,
-                    REACT_APP_UNSTOPPABLE_CLIENT_ID,
-                    API_AUTH,
-                    setToken,
-                  });
-                }
-              } else if (
-                error.message === SIGN_IN_ERROR_MESSAGES.NO_WORKSPACE
-              ) {
-                history.push({
-                  pathname: '/no-workspace',
-                  state: { account },
-                });
-              } else {
-                addNotification(error.message, 'error');
-              }
-            });
+          //       if (sig && label === 'Unstoppable') {
+          //         loginUnstoppableEffect({
+          //           history,
+          //           redirectUrl,
+          //           REACT_APP_UNSTOPPABLE_CLIENT_ID,
+          //           API_AUTH,
+          //           setToken,
+          //         });
+          //       }
+          //     } else if (
+          //       error.message === SIGN_IN_ERROR_MESSAGES.NO_WORKSPACE
+          //     ) {
+          //       history.push({
+          //         pathname: '/no-workspace',
+          //         state: { account },
+          //       });
+          //     } else {
+          //       addNotification(error.message, 'error');
+          //     }
+          //   });
         }
         if (sig && label === 'Unstoppable') {
           loginUnstoppableEffect({

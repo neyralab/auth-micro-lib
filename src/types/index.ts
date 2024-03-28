@@ -1,3 +1,5 @@
+import { SignMessageMutateAsync } from 'wagmi/query';
+
 export interface IWeb3NeyraAuth {
   authToken: string;
   refreshToken: string;
@@ -34,4 +36,17 @@ export interface ILoginEmail {
   email: string;
   password: string;
   NEIRA_AI_API: string;
+}
+
+export interface ILoginMetamask {
+  publicAddress: `0x${string}`;
+  signature: string;
+  NEYRA_AI_API: string;
+  GHOST_DRIVE_API: string;
+  signMessageAsync: SignMessageMutateAsync<unknown>;
+}
+
+export interface IGetUserRSAKeys {
+  publicAddress: `0x${string}`;
+  signMessageAsync: SignMessageMutateAsync<unknown>;
 }
