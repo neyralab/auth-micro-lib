@@ -3,6 +3,7 @@ import { getUserRSAKeys } from '../getUserRSAKeys/index.js';
 import { publicKeyToPem } from '../publicKeyToPem/index.js';
 import { setToken } from '../setToken/index.js';
 import { ILoginMetamask } from '../types/index.js';
+import { redirectionAfterLogin } from '../utils/redirectionAfterLogin.js';
 
 export const loginMetamask = async ({
   publicAddress,
@@ -43,7 +44,7 @@ export const loginMetamask = async ({
     }
 
     setToken(response, access_token, refresh_token);
-    return { isNewUser };
+    redirectionAfterLogin(isNewUser);
   } catch (err) {
     throw err;
   }
