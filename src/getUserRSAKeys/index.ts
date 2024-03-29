@@ -3,7 +3,7 @@ import { IGetUserRSAKeys } from '../types/index.js';
 
 export const getUserRSAKeys = async ({ signMessageAsync, publicAddress }: IGetUserRSAKeys) => {
   const msg =
-    'Welcome to GhostDrive! \n\nPlease sign to start using this for encryption with Ghostdrive. \n' +
+    'Welcome to Neyra Network! \n\nPlease sign to start using this for encryption with Neyra. \n' +
     'This will not trigger a blockchain transaction or cost any gas fees. \n\n' +
     "What's happening?\n" +
     'A public key will be registered with this address and \n' +
