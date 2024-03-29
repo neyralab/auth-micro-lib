@@ -42,11 +42,13 @@ export interface ILoginMetamask {
   GHOST_DRIVE_API: string;
   signMessageAsync?: any;
   autoRedirect?: boolean;
+  provider?: any;
 }
 
 export interface IGetUserRSAKeys {
   publicAddress: `0x${string}`;
   signMessageAsync?: any;
+  provider?: any;
 }
 
 export interface ILoginTelegram {
@@ -78,6 +80,7 @@ export interface ISignMessage {
   message: string;
   publicAddress: `0x${string}`;
   signMessageAsync?: any;
+  provider?: any;
 }
 
 export interface IGetAuthInfo {
@@ -93,6 +96,7 @@ export interface IAuthInfoResponse {
 
 export interface ISavePublicKey {
   signMessageAsync?: any;
+  provider?: any;
   publicAddress: `0x${string}`;
   token: string;
   GHOST_DRIVE_API: string;

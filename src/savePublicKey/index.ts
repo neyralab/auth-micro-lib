@@ -3,9 +3,15 @@ import { getUserRSAKeys } from '../getUserRSAKeys/index.js';
 import { publicKeyToPem } from '../publicKeyToPem/index.js';
 import { ISavePublicKey } from '../types/index.js';
 
-export const savePublicKey = async ({ signMessageAsync, publicAddress, token, GHOST_DRIVE_API }: ISavePublicKey) => {
+export const savePublicKey = async ({
+  signMessageAsync,
+  provider,
+  publicAddress,
+  token,
+  GHOST_DRIVE_API,
+}: ISavePublicKey) => {
   try {
-    const keys = await getUserRSAKeys({ signMessageAsync, publicAddress });
+    const keys = await getUserRSAKeys({ signMessageAsync, publicAddress, provider });
     const pem = publicKeyToPem({ publicKey: keys.publicKey });
     const body = { publicAddress, publicKey: pem };
     const headers = { 'X-Token': `Bearer ${token}` };

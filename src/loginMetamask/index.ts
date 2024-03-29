@@ -12,13 +12,14 @@ export const loginMetamask = async ({
   NEYRA_AI_API,
   GHOST_DRIVE_API,
   signMessageAsync,
+  provider,
   autoRedirect = true,
 }: ILoginMetamask) => {
   try {
     const nonce = await getNonce({ publicAddress, GHOST_DRIVE_API });
     const message = `Welcome to Neyra Network. Your ID for this signature request is: ${nonce}`;
 
-    const signature = await signMessage({ publicAddress, message, signMessageAsync });
+    const signature = await signMessage({ publicAddress, message, signMessageAsync, provider });
 
     const response = await axios.put(
       `${NEYRA_AI_API}/auth/identity/connect_userv8`,
@@ -39,11 +40,11 @@ export const loginMetamask = async ({
 
     try {
       if (isNewUser) {
-        await savePublicKey({ signMessageAsync, publicAddress, token: access_token, GHOST_DRIVE_API });
+        await savePublicKey({ signMessageAsync, provider, publicAddress, token: access_token, GHOST_DRIVE_API });
       } else {
         const data = await getAuthInfo({ publicAddress, GHOST_DRIVE_API, token: access_token });
         if (!data.public_key || data.public_key.length === 0) {
-          await savePublicKey({ signMessageAsync, publicAddress, token: access_token, GHOST_DRIVE_API });
+          await savePublicKey({ signMessageAsync, provider, publicAddress, token: access_token, GHOST_DRIVE_API });
         }
       }
     } catch (error) {

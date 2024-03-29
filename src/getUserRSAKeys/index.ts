@@ -2,7 +2,7 @@ import * as forge from 'node-forge';
 import { IGetUserRSAKeys } from '../types/index.js';
 import { signMessage } from '../signMessage/index.js';
 
-export const getUserRSAKeys = async ({ signMessageAsync, publicAddress }: IGetUserRSAKeys) => {
+export const getUserRSAKeys = async ({ signMessageAsync, publicAddress, provider }: IGetUserRSAKeys) => {
   const msg =
     'Welcome to Neyra Network! \n\nPlease sign to start using this for encryption with Neyra. \n' +
     'This will not trigger a blockchain transaction or cost any gas fees. \n\n' +
@@ -14,6 +14,7 @@ export const getUserRSAKeys = async ({ signMessageAsync, publicAddress }: IGetUs
     message: msg,
     publicAddress,
     signMessageAsync,
+    provider,
   });
   const prng = forge.random.createInstance();
 
