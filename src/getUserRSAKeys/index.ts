@@ -1,5 +1,6 @@
 import * as forge from 'node-forge';
 import { IGetUserRSAKeys } from '../types/index.js';
+import { signMessage } from '../signMessage/index.js';
 
 export const getUserRSAKeys = async ({ signMessageAsync, publicAddress }: IGetUserRSAKeys) => {
   const msg =
@@ -9,9 +10,10 @@ export const getUserRSAKeys = async ({ signMessageAsync, publicAddress }: IGetUs
     'A public key will be registered with this address and \n' +
     'used only for data encryption.';
 
-  const rnd = await signMessageAsync({
+  const rnd = await signMessage({
     message: msg,
-    account: publicAddress,
+    publicAddress,
+    signMessageAsync,
   });
   const prng = forge.random.createInstance();
 

@@ -40,13 +40,13 @@ export interface ILoginMetamask {
   publicAddress: `0x${string}`;
   NEYRA_AI_API: string;
   GHOST_DRIVE_API: string;
-  signMessageAsync: any;
-  isWagmi: boolean
+  signMessageAsync?: any;
+  autoRedirect?: boolean;
 }
 
 export interface IGetUserRSAKeys {
   publicAddress: `0x${string}`;
-  signMessageAsync: any;
+  signMessageAsync?: any;
 }
 
 export interface ILoginTelegram {
@@ -72,4 +72,28 @@ export interface ILoginGoogle {
 export interface IGetNonce {
   GHOST_DRIVE_API: string;
   publicAddress: `0x${string}`;
+}
+
+export interface ISignMessage {
+  message: string;
+  publicAddress: `0x${string}`;
+  signMessageAsync?: any;
+}
+
+export interface IGetAuthInfo {
+  GHOST_DRIVE_API: string;
+  publicAddress: `0x${string}`;
+  token: string;
+}
+
+export interface IAuthInfoResponse {
+  public_key?: string;
+  mercure_jwt: string;
+}
+
+export interface ISavePublicKey {
+  signMessageAsync?: any;
+  publicAddress: `0x${string}`;
+  token: string;
+  GHOST_DRIVE_API: string;
 }

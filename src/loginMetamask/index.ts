@@ -1,18 +1,25 @@
 import axios from 'axios';
-import { getUserRSAKeys } from '../getUserRSAKeys/index.js';
-import { publicKeyToPem } from '../publicKeyToPem/index.js';
 import { setToken } from '../setToken/index.js';
 import { ILoginMetamask } from '../types/index.js';
 import { redirectionAfterLogin } from '../utils/redirectionAfterLogin.js';
+import { getNonce } from '../getNonce/index.js';
+import { signMessage } from '../signMessage/index.js';
+import { getAuthInfo } from '../getAuthInfo/index.js';
+import { savePublicKey } from '../savePublicKey/index.js';
 
 export const loginMetamask = async ({
   publicAddress,
-  signature,
   NEYRA_AI_API,
   GHOST_DRIVE_API,
   signMessageAsync,
+  autoRedirect = true,
 }: ILoginMetamask) => {
   try {
+    const nonce = await getNonce({ publicAddress, GHOST_DRIVE_API });
+    const message = `Welcome to Neyra Network. Your ID for this signature request is: ${nonce}`;
+
+    const signature = await signMessage({ publicAddress, message, signMessageAsync });
+
     const response = await axios.put(
       `${NEYRA_AI_API}/auth/identity/connect_userv8`,
       {
@@ -30,21 +37,21 @@ export const loginMetamask = async ({
     const refresh_token = response.data.data.refresh_token;
     const isNewUser = response.data.message === 'Registration complete';
 
-    if (isNewUser) {
-      try {
-        const keys = await getUserRSAKeys({ signMessageAsync, publicAddress });
-        const pem = publicKeyToPem({ publicKey: keys.publicKey });
-        const body = { publicAddress, publicKey: pem };
-        const headers = { 'X-Token': `Bearer ${access_token}` };
-        const url = `${GHOST_DRIVE_API}/keys/pub_key_save`;
-        await axios.post(url, body, { headers });
-      } catch (error) {
-        console.error(error);
+    try {
+      if (isNewUser) {
+        await savePublicKey({ signMessageAsync, publicAddress, token: access_token, GHOST_DRIVE_API });
+      } else {
+        const data = await getAuthInfo({ publicAddress, GHOST_DRIVE_API, token: access_token });
+        if (!data.public_key || data.public_key.length === 0) {
+          await savePublicKey({ signMessageAsync, publicAddress, token: access_token, GHOST_DRIVE_API });
+        }
       }
+    } catch (error) {
+      console.error(error);
     }
 
     setToken(response, access_token, refresh_token);
-    redirectionAfterLogin(isNewUser);
+    autoRedirect && redirectionAfterLogin(isNewUser);
   } catch (err) {
     throw err;
   }
