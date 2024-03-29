@@ -1,5 +1,3 @@
-import { SignMessageMutateAsync } from 'wagmi/query';
-
 export interface IWeb3NeyraAuth {
   authToken: string;
   refreshToken: string;
@@ -40,15 +38,15 @@ export interface ILoginEmail {
 
 export interface ILoginMetamask {
   publicAddress: `0x${string}`;
-  signature: string;
   NEYRA_AI_API: string;
   GHOST_DRIVE_API: string;
-  signMessageAsync: SignMessageMutateAsync<unknown>;
+  signMessageAsync: any;
+  isWagmi: boolean
 }
 
 export interface IGetUserRSAKeys {
   publicAddress: `0x${string}`;
-  signMessageAsync: SignMessageMutateAsync<unknown>;
+  signMessageAsync: any;
 }
 
 export interface ILoginTelegram {
@@ -69,4 +67,9 @@ export interface TelegramUser {
 export interface ILoginGoogle {
   NEYRA_AI_API: string;
   credential: any;
+}
+
+export interface IGetNonce {
+  GHOST_DRIVE_API: string;
+  publicAddress: `0x${string}`;
 }
