@@ -53,6 +53,7 @@ export const loginMetamask = async ({
 
     setToken(response, access_token, refresh_token);
     autoRedirect && redirectionAfterLogin(isNewUser);
+    return { isNewUser };
   } catch (err) {
     throw err;
   }
