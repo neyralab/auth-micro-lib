@@ -35,39 +35,3 @@ Accepts:
 2. signature - Metamask signature
 3. NEYRA_AI_API - neira url
 4. API_PUB_KEY_SAVE - ghost url
-
-
-
-
-## Get user's RSA keys
-
-```javascript
-import { getUserRSAKeys } from 'gdgateway-client/lib/es5';
-
-await getUserRSAKeys({ signer });
-```
-
-1. Returns generated key pair using node-forge
-
-```javascript
-Example of 'signer':
-
-import { ethers } from 'ethers';
-
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
-```
-
-
-### Convert public key to pem
-
-1. Returns public key in pem format using node-forge
-
-```javascript
-const keys = await getUserRSAKeys(signer);
-const public_key = publicKeyToPem({ publicKey: keys.publicKey });
-```
-
-Accepts:
-
-1. publicKey - generated public key using getUserRSAKeys function
