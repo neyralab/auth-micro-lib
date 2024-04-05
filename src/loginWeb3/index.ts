@@ -1,20 +1,20 @@
 import axios from 'axios';
 import { setToken } from '../setToken/index.js';
-import { ILoginMetamask } from '../types/index.js';
+import { IloginWeb3 } from '../types/index.js';
 import { redirectionAfterLogin } from '../utils/redirectionAfterLogin.js';
 import { getNonce } from '../getNonce/index.js';
 import { signMessage } from '../signMessage/index.js';
 import { getAuthInfo } from '../getAuthInfo/index.js';
 import { savePublicKey } from '../savePublicKey/index.js';
 
-export const loginMetamask = async ({
+export const loginWeb3 = async ({
   publicAddress,
   NEYRA_AI_API,
   GHOST_DRIVE_API,
   signMessageAsync,
   provider,
   autoRedirect = true,
-}: ILoginMetamask) => {
+}: IloginWeb3) => {
   try {
     const nonce = await getNonce({ publicAddress, GHOST_DRIVE_API });
     const message = `Welcome to Neyra Network. Your ID for this signature request is: ${nonce}`;

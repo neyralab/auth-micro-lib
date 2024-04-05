@@ -18,6 +18,6 @@ export const savePublicKey = async ({
     const url = `${GHOST_DRIVE_API}/keys/pub_key_save`;
     await axios.post(url, body, { headers });
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };

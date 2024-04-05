@@ -43,7 +43,6 @@
     "@types/jsdom": "^21.1.1",
     "@types/node": "^20.4.4",
     "@types/node-forge": "^1.3.4",
-    "@types/react": "^18.2.65",
     "@types/set-cookie-parser": "^2.4.3",
     "babel-loader": "^9.1.3",
     "cli-table3": "^0.6.3",
@@ -54,10 +53,6 @@
     "ts-jest": "^29.1.1",
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6"
-  },
-  "react-native": {
-    "fs": "react-native-fs",
-    "crypto": "react-native-crypto"
   },
   "main": "./lib/es5/index.js",
   "module": "./lib/es6/index.js",
