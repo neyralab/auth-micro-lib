@@ -53,7 +53,7 @@ export const loginWeb3 = async ({
 
     setToken(response, access_token, refresh_token);
     autoRedirect && redirectionAfterLogin(isNewUser);
-    return { isNewUser };
+    return { isNewUser, access_token, refresh_token };
   } catch (err) {
     throw err;
   }
