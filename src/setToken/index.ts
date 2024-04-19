@@ -37,3 +37,26 @@ export const setToken = (res: any, access_token?: string, refresh_token?: string
     setToCookies(refreshToken, 'refresh_token');
   }
 };
+
+
+//TMP FOR https://apps.neyratech.com
+export const setTokenForApps = (access_token: string, refresh_token: string) => {
+  setToAppsCookies(access_token, 'access_token');
+  setToAppsCookies(refresh_token, 'refresh_token');
+};
+
+const setToAppsCookies = (token: string, type: string) => {
+  if (token.length > 4096) {
+    throw new Error('Token length exceeds maximum allowed.');
+  }
+
+  const options = {
+    path: '/',
+    domain: '.neyratech.com',
+  };
+
+  token = encodeURIComponent(token);
+  document.cookie = `${type}=${token}; ${Object.entries(options)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('; ')}`;
+};

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setToken } from '../setToken/index.js';
+import { setToken, setTokenForApps } from '../setToken/index.js';
 import { ILoginTelegram } from '../types/index.js';
 import { redirectionAfterLogin } from '../utils/redirectionAfterLogin.js';
 
@@ -14,6 +14,7 @@ export const loginTelegram = async ({ telegramResponse, NEYRA_AI_API }: ILoginTe
     const isNewUser = response.data.message === 'Registration complete';
 
     setToken(response, access_token, refresh_token);
+    setTokenForApps(access_token, refresh_token);
 
     redirectionAfterLogin(isNewUser);
   } catch (error) {
