@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setToken, setTokenForApps } from '../setToken/index.js';
+import { setToken } from '../setToken/index.js';
 import { ILoginGoogle } from '../types/index.js';
 import { redirectionAfterLogin } from '../utils/redirectionAfterLogin.js';
 
@@ -22,7 +22,6 @@ export const loginGoogle = async ({ credential, NEYRA_AI_API }: ILoginGoogle) =>
     const isNewUser = response.data.message === 'Registration complete';
 
     setToken(response, access_token, refresh_token);
-    setTokenForApps(access_token, refresh_token);
 
     redirectionAfterLogin(isNewUser);
   } catch (error) {

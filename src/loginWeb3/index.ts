@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setToken, setTokenForApps } from '../setToken/index.js';
+import { setToken } from '../setToken/index.js';
 import { IloginWeb3 } from '../types/index.js';
 import { redirectionAfterLogin } from '../utils/redirectionAfterLogin.js';
 import { getNonce } from '../getNonce/index.js';
@@ -52,7 +52,6 @@ export const loginWeb3 = async ({
     }
 
     setToken(response, access_token, refresh_token);
-    setTokenForApps(access_token, refresh_token);
 
     autoRedirect && redirectionAfterLogin(isNewUser);
     return { isNewUser, access_token, refresh_token };
