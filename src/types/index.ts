@@ -23,6 +23,7 @@ export interface IGetUserRSAKeys {
 export interface ILoginTelegram {
   NEYRA_AI_API: string;
   telegramResponse: TelegramUser;
+  autoRedirect: boolean;
 }
 
 export interface TelegramUser {
@@ -38,6 +39,7 @@ export interface TelegramUser {
 export interface ILoginGoogle {
   NEYRA_AI_API: string;
   credential: any;
+  autoRedirect: boolean;
 }
 
 export interface IGetNonce {
