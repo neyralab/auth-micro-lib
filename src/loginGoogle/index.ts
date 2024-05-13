@@ -24,6 +24,7 @@ export const loginGoogle = async ({ credential, NEYRA_AI_API, autoRedirect = tru
     setToken(response, access_token, refresh_token);
 
     autoRedirect && redirectionAfterLogin(isNewUser);
+    return { isNewUser, access_token, refresh_token };
   } catch (error) {
     throw error;
   }

@@ -16,6 +16,7 @@ export const loginTelegram = async ({ telegramResponse, NEYRA_AI_API, autoRedire
     setToken(response, access_token, refresh_token);
 
     autoRedirect && redirectionAfterLogin(isNewUser);
+    return { isNewUser, access_token, refresh_token };
   } catch (error) {
     throw error;
   }
