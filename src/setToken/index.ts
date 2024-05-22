@@ -13,6 +13,8 @@ const setToCookies = (token: string, type: string) => {
 
   const options: CookieOptions = {
     path: '/',
+    Secure: 'true', 
+    SameSite: 'None'
   };
 
   if (window.location.hostname !== 'localhost') {
