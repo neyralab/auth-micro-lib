@@ -4,6 +4,8 @@ import { getMainDomain } from '../utils/getMainDomain.js';
 interface CookieOptions {
   path?: string;
   domain?: string;
+  Secure?: string;
+  SameSite  ?: string;
 }
 
 const setToCookies = (token: string, type: string) => {
