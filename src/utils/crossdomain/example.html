@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neyra crosdomain auth test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        // Function to load and inject the script
+        let script = document.createElement('script');
+
+        function loadScript() {
+            // Create a new fetch request to fetch the script file
+            fetch('https://neyratech.com/jwts.js', {
+                method: 'GET',
+                credentials: 'include' // Include credentials (cookies) in the request
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Return the response body as text
+                })
+                .then(scriptContent => {
+                    script.textContent = scriptContent;
+                    const body = document.body;
+                    body.appendChild(script);
+                    console.log('Script loaded successfully');
+                })
+                .catch(error => {
+                    // Log error message
+                    console.error('Error loading script:', error);
+                });
+        }
+
+        // Add event listener for DOMContentLoaded event
+        document.addEventListener('DOMContentLoaded', loadScript);
+
+
+    </script>
+    <script>
+        axios.interceptors.request.use(async function (config) {
+            // Get the tokens
+            const tokens = await getTokens();
+
+            // Manually set the access_token cookie in the request header
+            const accessToken = tokens.accessToken;
+
+            if (accessToken) {
+                // Parse existing cookies
+                const existingCookies = config.headers.Cookie ? config.headers.Cookie.split('; ').reduce((acc, cookie) => {
+                    const [name, ...rest] = cookie.split('=');
+                    acc[name.trim()] = rest.join('=');
+                    return acc;
+                }, {}) : {};
+
+                // Set or override the access_token cookie
+                existingCookies['access_token'] = accessToken;
+
+                // Reconstruct the cookie header
+                config.headers.Cookie = Object.entries(existingCookies).map(([name, value]) => `${name}=${value}`).join('; ');
+            }
+
+            return config;
+        }, function (error) {
+            // Handle request error
+            return Promise.reject(error);
+        });
+
+    </script>
+</head>
+<body>
+<h1>Testing authentication approach</h1>
+<p>
+
+</p>
+</body>
+</html>
