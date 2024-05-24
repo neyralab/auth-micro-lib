@@ -66,7 +66,7 @@ export default {
             
             if (event.origin === '${allowedOrigin}') {
                 console.log({eventData: event.data});
-              const cookieOptions = { path: '/', domain: '${currentDomain}', secure: true, SameSite: 'None' };
+              const cookieOptions = { path: '/', domain: '.${currentDomain}', secure: true, SameSite: 'None' };
               let accessTokenCookie = \`access_token=\${event.data.accessToken}; \${serialize(cookieOptions)}\`;
               document.cookie = accessTokenCookie;
 
@@ -90,7 +90,7 @@ let lastAccessTokenRefreshTime = 0;
 
 function createCookieSetterIframe() {
     const iframe = document.createElement('iframe');
-    // iframe.style.display = 'none';
+    iframe.style.display = 'none';
     iframe.src = 'https://${currentDomain}/cookie-setter.html';
     iframe.id = 'cookieSetterIframe';
     iframe.height=100;
@@ -105,6 +105,13 @@ function sendMessageToIframe(message) {
 
         iframe.contentWindow.postMessage(message, '*');
     }
+}
+
+function setTokens(tokens) { 
+    accessToken = tokens.accessToken;
+    refreshToken = tokens.refreshToken;
+    
+    sendMessageToIframe({accessToken, refreshToken});
 }
 
 function serialize(options) {
@@ -129,23 +136,23 @@ async function refreshAccessToken() {
         }
 
         const data = await response.json();
-        console.log({data});
 
         // Update cookies 
-        refreshToken = data.data.refresh_token;
-        accessToken = data.data.access_token;
-
         console.log('Access Token refreshed:', data.data.access_token);
         console.log('Refresh Token refreshed:', data.data.refresh_token);
 
         lastAccessTokenRefreshTime = Math.floor(Date.now() / 1000);
         const tokens = { accessToken: data.data.access_token, refreshToken: data.data.refresh_token };
         
-        sendMessageToIframe(tokens);
+        setTokens(tokens);
 
         return tokens;
     } catch (error) {
         console.error('Error refreshing token:', error);
+        if (error instanceof Response && error.status === 401) {
+            const currentLocation = encodeURIComponent(window.location.href);
+            window.location.href = 'https://${currentDomain}/connect#backTo='+ encodeURIComponent(window.location.href);
+        }
         return null;
     }
 }
