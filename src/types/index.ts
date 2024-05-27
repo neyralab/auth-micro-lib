@@ -11,6 +11,7 @@ export interface IloginWeb3 {
   GHOST_DRIVE_API: string;
   signMessageAsync?: any;
   autoRedirect?: boolean;
+  shouldSetToken?: boolean;
   provider?: any;
 }
 
@@ -24,6 +25,7 @@ export interface ILoginTelegram {
   NEYRA_AI_API: string;
   telegramResponse: TelegramUser;
   autoRedirect?: boolean;
+  shouldSetToken?: boolean;
 }
 
 export interface TelegramUser {
@@ -40,6 +42,7 @@ export interface ILoginGoogle {
   NEYRA_AI_API: string;
   credential: any;
   autoRedirect?: boolean;
+  shouldSetToken?: boolean;
 }
 
 export interface IGetNonce {

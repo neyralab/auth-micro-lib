@@ -3,7 +3,12 @@ import { setToken } from '../setToken/index.js';
 import { ILoginGoogle } from '../types/index.js';
 import { redirectionAfterLogin } from '../utils/redirectionAfterLogin.js';
 
-export const loginGoogle = async ({ credential, NEYRA_AI_API, autoRedirect = true }: ILoginGoogle) => {
+export const loginGoogle = async ({
+  credential,
+  NEYRA_AI_API,
+  autoRedirect = true,
+  shouldSetToken = true,
+}: ILoginGoogle) => {
   try {
     const response = await axios.put(
       `${NEYRA_AI_API}/auth/identity/connect_userv8`,
@@ -21,7 +26,7 @@ export const loginGoogle = async ({ credential, NEYRA_AI_API, autoRedirect = tru
     const refresh_token = response.data.data.refresh_token;
     const isNewUser = response.data.message === 'Registration complete';
 
-    setToken(response, access_token, refresh_token);
+    shouldSetToken && setToken(response, access_token, refresh_token);
 
     autoRedirect && redirectionAfterLogin(isNewUser);
     return { isNewUser, access_token, refresh_token };

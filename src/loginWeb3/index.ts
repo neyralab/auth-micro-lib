@@ -14,6 +14,7 @@ export const loginWeb3 = async ({
   signMessageAsync,
   provider,
   autoRedirect = true,
+  shouldSetToken = true,
 }: IloginWeb3) => {
   try {
     const nonce = await getNonce({ publicAddress, GHOST_DRIVE_API });
@@ -51,7 +52,7 @@ export const loginWeb3 = async ({
       console.error(error);
     }
 
-    setToken(response, access_token, refresh_token);
+    shouldSetToken && setToken(response, access_token, refresh_token);
 
     autoRedirect && redirectionAfterLogin(isNewUser);
     return { isNewUser, access_token, refresh_token };
