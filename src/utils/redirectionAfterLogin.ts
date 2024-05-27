@@ -1,6 +1,6 @@
 export const redirectionAfterLogin = (isNewUser: boolean) => {
-  const redirectPath = isNewUser ? '/welcome' : '/chat';
   const previousSpace = document.referrer.includes('space');
+  const redirectPath = isNewUser ? '/welcome' : previousSpace ? '/neyra' : '/chat';
   const redirectHref = `${
     previousSpace ? removeTrailingSlash(document.referrer) : window.location.origin
   }${redirectPath}`;
