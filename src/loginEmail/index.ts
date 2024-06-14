@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { setToken } from '../setToken/index.js';
 import { ILoginEmail } from '../types/index.js';
+import { getUserIp } from '../utils/getUserIp.js';
 
 export const loginEmail = async ({ NEYRA_AI_API, name, password, email }: ILoginEmail) => {
   try {
+    const userIp = await getUserIp();
+
     const response = await axios.put(
       `${NEYRA_AI_API}/auth/identity/connect_userv8`,
       {
@@ -15,6 +18,7 @@ export const loginEmail = async ({ NEYRA_AI_API, name, password, email }: ILogin
       {
         headers: {
           'Content-Type': 'application/json',
+          'X-User-IP': userIp,
         },
       }
     );

@@ -6,6 +6,7 @@ import { getNonce } from '../getNonce/index.js';
 import { signMessage } from '../signMessage/index.js';
 import { getAuthInfo } from '../getAuthInfo/index.js';
 import { savePublicKey } from '../savePublicKey/index.js';
+import { getUserIp } from '../utils/getUserIp.js';
 
 export const loginWeb3 = async ({
   publicAddress,
@@ -22,6 +23,7 @@ export const loginWeb3 = async ({
 
     const signature = await signMessage({ publicAddress, message, signMessageAsync, provider });
 
+    const userIp = await getUserIp();
     const response = await axios.put(
       `${NEYRA_AI_API}/auth/identity/connect_userv8`,
       {
@@ -32,6 +34,7 @@ export const loginWeb3 = async ({
       {
         headers: {
           'Content-Type': 'application/json',
+          'X-User-IP': userIp,
         },
       }
     );

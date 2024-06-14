@@ -2,6 +2,7 @@ import axios from 'axios';
 import { setToken } from '../setToken/index.js';
 import { ILoginGoogle } from '../types/index.js';
 import { redirectionAfterLogin } from '../utils/redirectionAfterLogin.js';
+import { getUserIp } from '../utils/getUserIp.js';
 
 export const loginGoogle = async ({
   credential,
@@ -10,6 +11,8 @@ export const loginGoogle = async ({
   shouldSetToken = true,
 }: ILoginGoogle) => {
   try {
+    const userIp = await getUserIp();
+
     const response = await axios.put(
       `${NEYRA_AI_API}/auth/identity/connect_userv8`,
       {
@@ -19,6 +22,7 @@ export const loginGoogle = async ({
       {
         headers: {
           'Content-Type': 'application/json',
+          'X-User-IP': userIp,
         },
       }
     );
