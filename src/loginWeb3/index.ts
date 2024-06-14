@@ -34,7 +34,7 @@ export const loginWeb3 = async ({
       {
         headers: {
           'Content-Type': 'application/json',
-          'X-User-IP': userIp,
+          'X-Real-IP': userIp,
         },
       }
     );

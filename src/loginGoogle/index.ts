@@ -22,7 +22,7 @@ export const loginGoogle = async ({
       {
         headers: {
           'Content-Type': 'application/json',
-          'X-User-IP': userIp,
+          'X-Real-IP': userIp,
         },
       }
     );

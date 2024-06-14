@@ -21,7 +21,7 @@ export const loginTelegram = async ({
       },
       {
         headers: {
-          'X-User-IP': userIp,
+          'X-Real-IP': userIp,
         },
       }
     );

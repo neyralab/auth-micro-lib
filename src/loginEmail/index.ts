@@ -18,7 +18,7 @@ export const loginEmail = async ({ NEYRA_AI_API, name, password, email }: ILogin
       {
         headers: {
           'Content-Type': 'application/json',
-          'X-User-IP': userIp,
+          'X-Real-IP': userIp,
         },
       }
     );
